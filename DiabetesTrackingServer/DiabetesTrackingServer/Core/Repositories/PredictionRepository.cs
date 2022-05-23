@@ -11,12 +11,18 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace DiabetesTrackingServer.Core.Repositories
 {
     public class PredictionRepository : IPredictionRepository
     {
         private DiabetesTrackingContext _dbContext;
+
+        public PredictionRepository(DiabetesTrackingContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
 
         public async Task<IEnumerable<DiabetesPrediction>> GetAllPredictions()
         {
@@ -31,12 +37,28 @@ namespace DiabetesTrackingServer.Core.Repositories
             _dbContext.SaveChanges();
         }
 
-        public string DoPrediction(PredictionModel predictionEntity)
+        public async Task<string> DoPredictionAsync(PredictionModel predictionEntity)
         {
-            string scoringUri = "https://studio.azureml.net/Home/ViewWorkspaceCached/bbda1182141c4b35b6c9172f8a434148?#Workspaces/WebServiceGroups/WebServiceGroup/7d494dca632f4ee3a5498b087746fb04/dashboard";
+            string scoringUri = "https://ussouthcentral.services.azureml.net/workspaces/bbda1182141c4b35b6c9172f8a434148/services/e3bb70b92fdd4749b0181f8c51daac8b/execute?api-version=2.0&details=true";
             string authKey = "R3JUibi4aQOjZDcc5l4SVHMh64inCX4vsp4PZv4opoxUfLtGOHPlW8tZoSbe415PrDuEDZctbQMPJsAhC9jvuA==";
 
-            var payloadData = new PayloadData
+            var scoreRequest = new
+            {
+
+                Inputs = new Dictionary<string, StringTable>() {
+                        {
+                            "input1",
+                            new StringTable()
+                            {
+                                ColumnNames = new string[] {"PatientID", "Pregnancies", "PlasmaGlucose", "DiastolicBloodPressure", "TricepsThickness", "SerumInsulin", "BMI", "DiabetesPedigree", "Age", "Diabetic"},
+                                Values = new string[] {"0", predictionEntity.Pregnancies.ToString(), predictionEntity.PlasmaGlucose.ToString(), predictionEntity.DiastolicBloodPressure.ToString(), predictionEntity.TricepsThickness.ToString(), predictionEntity.SerumInsulin.ToString(), predictionEntity.BMI.ToString(), predictionEntity.DiabetesPredigree.ToString(), predictionEntity.Age.ToString(), predictionEntity.Diabetic.ToString()},
+                            }
+                    }, },
+                GlobalParameters = new Dictionary<string, string>()
+                {
+                }
+            };
+            /*var payloadData = new PayloadData
             {
                 Pregnancies = predictionEntity.Pregnancies,
                 PlasmaGlucose = predictionEntity.PlasmaGlucose,
@@ -46,19 +68,18 @@ namespace DiabetesTrackingServer.Core.Repositories
                 BMI = predictionEntity.BMI,
                 DiabetesPedigree = predictionEntity.DiabetesPredigree,
                 Age = predictionEntity.Age,
-            };
+            };*/
 
             HttpClient client = new HttpClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", authKey);
 
+            client.BaseAddress = new Uri(scoringUri);
+            
+            HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
+
             try
             {
-                var request = new HttpRequestMessage(HttpMethod.Post, new Uri(scoringUri));
-                request.Content = new StringContent(JsonConvert.SerializeObject(payloadData));
-                request.Content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                var response = client.SendAsync(request).Result;
-                //display the response from the web service
-                return response.Content.ReadAsStringAsync().Result;
+               return response.Content.ReadAsStringAsync().Result;
             }
             catch (Exception e)
             {

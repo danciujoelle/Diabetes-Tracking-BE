@@ -13,9 +13,10 @@ namespace DiabetesTrackingServer.Controllers
         private IPredictionService _predictionService;
         private IUserService _userService;
 
-        public PredictionController(IPredictionService predictionService)
+        public PredictionController(IPredictionService predictionService, IUserService userService)
         {
             _predictionService = predictionService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -48,7 +49,7 @@ namespace DiabetesTrackingServer.Controllers
                 }
                 return BadRequest(new
                 {
-                    Message = "Username Exists",
+                    Message = "The input in not right",
                 });
             }
         }

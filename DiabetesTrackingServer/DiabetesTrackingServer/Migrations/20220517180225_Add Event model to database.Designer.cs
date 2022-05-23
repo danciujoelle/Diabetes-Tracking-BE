@@ -4,14 +4,16 @@ using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTrackingServer.Migrations
 {
     [DbContext(typeof(DiabetesTrackingContext))]
-    partial class DiabetesTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20220517180225_Add Event model to database")]
+    partial class AddEventmodeltodatabase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

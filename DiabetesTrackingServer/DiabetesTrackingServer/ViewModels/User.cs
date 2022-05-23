@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace DiabetesTrackingServer.ViewModels
 {
@@ -35,5 +33,6 @@ namespace DiabetesTrackingServer.ViewModels
         public string Password { get; set; }
 
         public ICollection<DiabetesPrediction> Predictions { get; set; }
+        public ICollection<Event> Events { get; set; }
     }
 }

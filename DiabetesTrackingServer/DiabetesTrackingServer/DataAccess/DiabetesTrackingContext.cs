@@ -8,6 +8,7 @@ namespace DiabetesTrackingServer.DataAccess
         public DiabetesTrackingContext(DbContextOptions<DiabetesTrackingContext> options) : base(options) { }
         public DbSet<User> Users { get; set; }
         public DbSet<DiabetesPrediction> Predictions { get; set; }
+        public DbSet<Event> Events { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

@@ -4,14 +4,16 @@ using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTrackingServer.Migrations
 {
     [DbContext(typeof(DiabetesTrackingContext))]
-    partial class DiabetesTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20220514163810_Change prediction model")]
+    partial class Changepredictionmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -62,36 +64,6 @@ namespace DiabetesTrackingServer.Migrations
                     b.ToTable("Predictions");
                 });
 
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.Event", b =>
-                {
-                    b.Property<Guid>("EventId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("EventId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Events");
-                });
-
             modelBuilder.Entity("DiabetesTrackingServer.ViewModels.User", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -139,19 +111,8 @@ namespace DiabetesTrackingServer.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.Event", b =>
-                {
-                    b.HasOne("DiabetesTrackingServer.ViewModels.User", "User")
-                        .WithMany("Events")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("DiabetesTrackingServer.ViewModels.User", b =>
                 {
-                    b.Navigation("Events");
-
                     b.Navigation("Predictions");
                 });
 #pragma warning restore 612, 618

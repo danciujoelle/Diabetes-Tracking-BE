@@ -10,6 +10,6 @@ namespace DiabetesTrackingServer.Services
     public interface IPredictionService
     {
         Task<IEnumerable<DiabetesPrediction>> GetAllPredictions();
-        string InsertPrediction(PredictionModel predictionEntity, User user);
+        Task<string> InsertPrediction(PredictionModel predictionEntity, User user);
     }
 }

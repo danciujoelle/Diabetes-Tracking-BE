@@ -3,7 +3,6 @@ namespace DiabetesTrackingServer.Models
 {
     public class PredictionModel
     {
-        public string PredictionId { get; set; }
         public int Pregnancies { get; set; }
         public int PlasmaGlucose { get; set; }
         public int DiastolicBloodPressure { get; set; }
