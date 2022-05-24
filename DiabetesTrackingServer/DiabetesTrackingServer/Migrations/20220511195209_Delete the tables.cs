@@ -8,9 +8,6 @@ namespace DiabetesTrackingServer.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "DiabetesPredictions");
-
-            migrationBuilder.DropTable(
                 name: "Users");
         }
 

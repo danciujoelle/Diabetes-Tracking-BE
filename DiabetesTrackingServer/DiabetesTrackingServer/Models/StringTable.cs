@@ -8,6 +8,6 @@ namespace DiabetesTrackingServer.Models
     public class StringTable
     {
         public string[] ColumnNames;
-        public string[] Values;
+        public string[,] Values;
     }
 }
