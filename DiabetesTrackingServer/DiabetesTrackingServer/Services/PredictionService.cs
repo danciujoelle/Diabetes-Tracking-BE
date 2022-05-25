@@ -18,10 +18,11 @@ namespace DiabetesTrackingServer.Services
             return await _predictionRepository.GetAllPredictions();
         }
 
-        public Task<string> InsertPrediction(PredictionModel predictionEntity, User user)
+        public async Task<string> InsertPrediction(PredictionModel predictionEntity, User user)
         {
-            _predictionRepository.InsertPrediction(predictionEntity, user);
-            return _predictionRepository.DoPredictionAsync(predictionEntity);
+            var resultedPrediction = await _predictionRepository.UsePredictionFastApiAsync(predictionEntity);
+            return _predictionRepository.InsertPrediction(resultedPrediction, user);
+            //return _predictionRepository.DoPredictionAsync(predictionEntity);
         }
     }
 }

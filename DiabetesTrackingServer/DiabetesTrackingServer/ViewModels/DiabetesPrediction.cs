@@ -24,10 +24,10 @@ namespace DiabetesTrackingServer.ViewModels
         public int SerumInsulin { get; set; }
 
         [Required]
-        public double BMI { get; set; }
+        public float BMI { get; set; }
 
         [Required]
-        public double DiabetesPedigree { get; set; }
+        public float DiabetesPedigree { get; set; }
         
         [Required]
         public int Age { get; set; }

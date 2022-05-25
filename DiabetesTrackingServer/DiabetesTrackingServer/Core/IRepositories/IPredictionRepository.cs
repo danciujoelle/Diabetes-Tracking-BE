@@ -8,7 +8,8 @@ namespace DiabetesTrackingServer.Core.IRepositories
     public interface IPredictionRepository
     {
         Task<IEnumerable<DiabetesPrediction>> GetAllPredictions();
-        void InsertPrediction(PredictionModel predictionEntity, User user);
+        string InsertPrediction(PredictionModel predictionEntity, User user);
         Task<string> DoPredictionAsync(PredictionModel predictionEntity);
+        Task<PredictionModel> UsePredictionFastApiAsync(PredictionModel prediction);
     }
 }

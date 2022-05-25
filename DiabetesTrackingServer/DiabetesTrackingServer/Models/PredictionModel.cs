@@ -8,8 +8,8 @@ namespace DiabetesTrackingServer.Models
         public int DiastolicBloodPressure { get; set; }
         public int TricepsThickness { get; set; }
         public int SerumInsulin { get; set; }
-        public double BMI { get; set; }
-        public double DiabetesPredigree { get; set; }
+        public float BMI { get; set; }
+        public float DiabetesPredigree { get; set; }
         public int Age { get; set; }
         public int Diabetic { get; set; }
         public string UserId { get; set; }
