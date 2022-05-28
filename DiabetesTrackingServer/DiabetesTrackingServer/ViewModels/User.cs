@@ -34,5 +34,6 @@ namespace DiabetesTrackingServer.ViewModels
 
         public ICollection<DiabetesPrediction> Predictions { get; set; }
         public ICollection<Event> Events { get; set; }
+        public ICollection<GlucoseLog> GlucoseLogs { get; set; }
     }
 }

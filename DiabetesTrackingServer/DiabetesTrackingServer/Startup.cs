@@ -33,6 +33,12 @@ namespace DiabetesTrackingServer
             services.AddTransient<IPredictionRepository, PredictionRepository>();
             services.AddTransient<IEventService, EventService>();
             services.AddTransient<IEventRepository, EventRepository>();
+            services.AddTransient<IGlucoseLogService, GlucoseLogService>();
+            services.AddTransient<IGlucoseLogRepository, GlucoseLogRepository>();
+            services.AddTransient<IInsulinLogService, InsulinLogService>();
+            services.AddTransient<IInsulinLogRepository, InsulinLogRepository>();
+            services.AddTransient<ISportLogRepository, SportLogRepository>();
+            services.AddTransient<ISportLogService, SportLogService>();
             services.AddDbContext<DiabetesTrackingContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DiabetesTracking")));
             services.AddControllers();
         }

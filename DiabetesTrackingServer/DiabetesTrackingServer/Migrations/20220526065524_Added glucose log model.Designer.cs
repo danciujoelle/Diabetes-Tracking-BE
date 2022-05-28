@@ -4,14 +4,16 @@ using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTrackingServer.Migrations
 {
     [DbContext(typeof(DiabetesTrackingContext))]
-    partial class DiabetesTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20220526065524_Added glucose log model")]
+    partial class Addedglucoselogmodel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -122,66 +124,6 @@ namespace DiabetesTrackingServer.Migrations
                     b.ToTable("GlucoseLogs");
                 });
 
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.InsulinLog", b =>
-                {
-                    b.Property<Guid>("InsulinLogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("InsulinIntake")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("LoggedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("WhenWasInjected")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("InsulinLogId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("InsulinLogs");
-                });
-
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.SportLog", b =>
-                {
-                    b.Property<Guid>("SportLogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<float>("Duration")
-                        .HasColumnType("real");
-
-                    b.Property<DateTime>("LoggedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Notes")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TypeOfActivity")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("SportLogId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("SportLogs");
-                });
-
             modelBuilder.Entity("DiabetesTrackingServer.ViewModels.User", b =>
                 {
                     b.Property<Guid>("UserId")
@@ -242,24 +184,6 @@ namespace DiabetesTrackingServer.Migrations
                 {
                     b.HasOne("DiabetesTrackingServer.ViewModels.User", "User")
                         .WithMany("GlucoseLogs")
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.InsulinLog", b =>
-                {
-                    b.HasOne("DiabetesTrackingServer.ViewModels.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DiabetesTrackingServer.ViewModels.SportLog", b =>
-                {
-                    b.HasOne("DiabetesTrackingServer.ViewModels.User", "User")
-                        .WithMany()
                         .HasForeignKey("UserId");
 
                     b.Navigation("User");
