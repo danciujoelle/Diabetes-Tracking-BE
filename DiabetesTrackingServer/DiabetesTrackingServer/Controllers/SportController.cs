@@ -61,7 +61,7 @@ namespace DiabetesTrackingServer.Controllers
                 }
                 return BadRequest(new
                 {
-                    Message = "The input in not right",
+                    Message = "The input is not right",
                 });
             }
         }
