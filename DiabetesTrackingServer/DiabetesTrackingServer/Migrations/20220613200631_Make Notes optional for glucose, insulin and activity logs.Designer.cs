@@ -4,14 +4,16 @@ using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTrackingServer.Migrations
 {
     [DbContext(typeof(DiabetesTrackingContext))]
-    partial class DiabetesTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20220613200631_Make Notes optional for glucose, insulin and activity logs")]
+    partial class MakeNotesoptionalforglucoseinsulinandactivitylogs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -67,6 +69,10 @@ namespace DiabetesTrackingServer.Migrations
                     b.Property<Guid>("EventId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");

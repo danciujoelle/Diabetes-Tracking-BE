@@ -4,14 +4,16 @@ using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DiabetesTrackingServer.Migrations
 {
     [DbContext(typeof(DiabetesTrackingContext))]
-    partial class DiabetesTrackingContextModelSnapshot : ModelSnapshot
+    [Migration("20220613124915_Update User Table with 2 new fields")]
+    partial class UpdateUserTablewith2newfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,6 +70,10 @@ namespace DiabetesTrackingServer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("datetime2");
 
@@ -101,8 +107,8 @@ namespace DiabetesTrackingServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Notes")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -131,8 +137,8 @@ namespace DiabetesTrackingServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Notes")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid?>("UserId")
                         .HasColumnType("uniqueidentifier");
@@ -161,8 +167,8 @@ namespace DiabetesTrackingServer.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Notes")
-                        .HasMaxLength(250)
-                        .HasColumnType("nvarchar(250)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TypeOfActivity")
                         .IsRequired()
