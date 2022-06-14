@@ -1,14 +1,13 @@
 ﻿using DiabetesTrackingServer.Models;
-using Microsoft.Data.SqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Dapper.Contrib.Extensions;
 using DiabetesTrackingServer.Mappers;
 using DiabetesTrackingServer.ViewModels;
 using DiabetesTrackingServer.DataAccess;
 using Microsoft.EntityFrameworkCore;
+using DiabetesTrackingServer.Common;
 
 namespace DiabetesTrackingServer.Repositories
 {
@@ -44,7 +43,13 @@ namespace DiabetesTrackingServer.Repositories
 
         public async Task<User> GetUserByUsernameAndPassword(string username, string password)
         {
-            return await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
+            var user = _dbContext.Users.FirstOrDefault(u => u.Username == username);
+            var value = CommonMethods.DecryptData(user.Password);
+            if(value == password)
+            {
+                return user;
+            }
+            return null;
         }
 
         public async Task<User> InsertUser(UserModel userEntity)
@@ -65,19 +70,45 @@ namespace DiabetesTrackingServer.Repositories
             return true;
         }
 
-        public async Task<User> UpdateUser(UserModel userEntity)
+        public async Task<bool> IsEmailUnique(string email)
         {
-            var result = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == userEntity.Username);
+            var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (existingUser != null)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public async Task<string> UpdateUser(UpdateUserModel userEntity)
+        {
+            var result = await _dbContext.Users.FirstOrDefaultAsync(u => u.UserId == userEntity.UserId);
 
             if (result != null)
             {
-                var user = userEntity.MapToDataEntity();
-                await _dbContext.SaveChangesAsync();
-                return result;
+                result.Email = userEntity.Email;
+                result.Username = userEntity.Username;
+                result.HasDiabetes = userEntity.HasDiabetes;
+                result.DiabetesType = userEntity.DiabetesType;
+                _dbContext.SaveChanges();
+                return "The user was updated successfully";
             }
 
             return null;
         }
 
+        public async Task<string> UpdatePassword(Guid userId, string newPassword)
+        {
+            var existingUser = await _dbContext.Users.FindAsync(userId);
+
+            if (existingUser != null)
+            {
+                existingUser.Password = CommonMethods.EncryptData(newPassword);
+                _dbContext.SaveChanges();
+                return "The password was updated successfully";
+            }
+
+            return "User provided does not exist.";
+        }
     }
 }

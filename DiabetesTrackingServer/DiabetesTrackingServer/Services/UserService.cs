@@ -1,10 +1,8 @@
 ﻿using DiabetesTrackingServer.Models;
-using DiabetesTrackingServer.Models;
 using DiabetesTrackingServer.Repositories;
 using DiabetesTrackingServer.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace DiabetesTrackingServer.Services
@@ -46,9 +44,19 @@ namespace DiabetesTrackingServer.Services
             return await _userRepository.IsUsernameUnique(username);
         }
 
-        public async Task<User> UpdateUser(UserModel userEntity)
+        public async Task<bool> IsEmailUnique(string email)
+        {
+            return await _userRepository.IsEmailUnique(email);
+        }
+
+        public async Task<string> UpdateUser(UpdateUserModel userEntity)
         {
             return await _userRepository.UpdateUser(userEntity);
+        }
+
+        public async Task<string> UpdatePassword(Guid userId, string newPassword)
+        {
+            return await _userRepository.UpdatePassword(userId, newPassword);
         }
     }
 }

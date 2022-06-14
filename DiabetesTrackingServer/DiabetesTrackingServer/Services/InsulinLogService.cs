@@ -26,5 +26,10 @@ namespace DiabetesTrackingServer.Services
         {
             return await _insulinLogRepository.InsertLog(insulinLogEntity, user);
         }
+
+        public bool NeedsReminder(User user)
+        {
+            return _insulinLogRepository.NeedsReminder(user);
+        }
     }
 }

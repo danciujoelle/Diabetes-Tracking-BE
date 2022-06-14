@@ -32,6 +32,12 @@ namespace DiabetesTrackingServer.ViewModels
         [StringLength(50)]
         public string Password { get; set; }
 
+        [Required]
+        public bool HasDiabetes { get; set; }
+
+        [Required]
+        public string DiabetesType { get; set; }
+
         public ICollection<DiabetesPrediction> Predictions { get; set; }
         public ICollection<Event> Events { get; set; }
         public ICollection<GlucoseLog> GlucoseLogs { get; set; }

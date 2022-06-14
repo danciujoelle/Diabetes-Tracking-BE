@@ -1,4 +1,5 @@
-﻿using DiabetesTrackingServer.Models;
+﻿using DiabetesTrackingServer.Common;
+using DiabetesTrackingServer.Models;
 using DiabetesTrackingServer.ViewModels;
 using System;
 
@@ -16,7 +17,9 @@ namespace DiabetesTrackingServer.Mappers
                 Email = user.Email,
                 DateOfBirth = user.DateOfBirth,
                 Username = user.Username,
-                Password = user.Password,
+                Password = CommonMethods.EncryptData(user.Password),
+                HasDiabetes = true,
+                DiabetesType = "Prediabetes",
             };
         }
     }
