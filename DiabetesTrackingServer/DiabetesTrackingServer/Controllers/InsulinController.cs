@@ -51,7 +51,7 @@ namespace DiabetesTrackingServer.Controllers
                 if (user != null)
                 {
 
-                    var result = _insulinLogService.InsertLog(insulinLog, user);
+                    var result = await _insulinLogService.InsertLog(insulinLog, user);
                     return Ok(new
                     {
                         StatusCode = 200,
@@ -64,6 +64,23 @@ namespace DiabetesTrackingServer.Controllers
                     Message = "The input is not right",
                 });
             }
+        }
+
+
+        [HttpGet]
+        [Route("reminder/{userId}")]
+        public async Task<IActionResult> NeedsReminder(string userId)
+        {
+            var user = await _userService.GetUserById(Guid.Parse(userId));
+            if (user != null)
+            {
+                var needsReminder = _insulinLogService.NeedsReminder(user);
+                return Ok(needsReminder);
+            }
+            return BadRequest(new
+            {
+                Message = "The input in not right",
+            });
         }
     }
 }

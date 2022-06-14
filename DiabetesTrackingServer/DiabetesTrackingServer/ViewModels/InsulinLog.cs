@@ -18,7 +18,7 @@ namespace DiabetesTrackingServer.ViewModels
         [Required]
         public string WhenWasInjected { get; set; }
 
-        [Required]
+        [MaxLength(250)]
         public string Notes { get; set; }
 
         public User User { get; set; }

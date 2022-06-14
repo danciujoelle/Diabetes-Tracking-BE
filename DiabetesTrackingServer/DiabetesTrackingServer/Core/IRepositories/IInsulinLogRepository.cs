@@ -12,5 +12,6 @@ namespace DiabetesTrackingServer.Core.IRepositories
     {
         Task<IEnumerable<InsulinDto>> GetAllLogs(User user);
         Task<InsulinLog> InsertLog(InsulinLogModel insulinLogEntity, User user);
+        bool NeedsReminder(User user);
     }
 }
