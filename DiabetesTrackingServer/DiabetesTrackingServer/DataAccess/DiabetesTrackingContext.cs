@@ -15,7 +15,7 @@ namespace DiabetesTrackingServer.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("server=JDANCIU-LAP;database=DiabetesTracking;Integrated Security=True;");
+            optionsBuilder.UseSqlServer("server=(LocalDB)\\MSSQLLocalDB;database=DiabetesTracking;Integrated Security=True;");
         }
 
     }

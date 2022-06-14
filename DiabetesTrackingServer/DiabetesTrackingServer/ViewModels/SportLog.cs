@@ -16,7 +16,7 @@ namespace DiabetesTrackingServer.ViewModels
         [Required]
         public string TypeOfActivity { get; set; }
 
-        [Required]
+        [MaxLength(250)]
         public string Notes { get; set; }
 
         public User User { get; set; }

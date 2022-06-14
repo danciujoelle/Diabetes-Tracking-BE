@@ -23,7 +23,10 @@ namespace DiabetesTrackingServer.Core.Repositories
 
         public async Task<IEnumerable<SportDto>> GetAllLogs(User user)
         {
-            return await _dbContext.SportLogs.Where(e => e.User == user).Select(e => new SportDto()
+            var today = DateTime.Today;
+            var currentMonth = today.Month;
+
+            return await _dbContext.SportLogs.Where(e => e.User == user && e.LoggedDate.Month >= currentMonth - 2).Select(e => new SportDto()
             {
                 Duration = e.Duration,
                 LoggedDate = e.LoggedDate,
