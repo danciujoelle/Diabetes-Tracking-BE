@@ -1,6 +1,7 @@
 using DiabetesTrackingServer.Core.IRepositories;
 using DiabetesTrackingServer.Core.Repositories;
 using DiabetesTrackingServer.DataAccess;
+using DiabetesTrackingServer.Models;
 using DiabetesTrackingServer.Repositories;
 using DiabetesTrackingServer.Services;
 using Microsoft.AspNetCore.Builder;
@@ -39,8 +40,11 @@ namespace DiabetesTrackingServer
             services.AddTransient<IInsulinLogRepository, InsulinLogRepository>();
             services.AddTransient<ISportLogRepository, SportLogRepository>();
             services.AddTransient<ISportLogService, SportLogService>();
+            services.AddTransient<IEmailService, EmailService>();
+            services.AddTransient<IEmailService, MailService>();
             services.AddDbContext<DiabetesTrackingContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DiabetesTracking")));
             services.AddControllers();
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

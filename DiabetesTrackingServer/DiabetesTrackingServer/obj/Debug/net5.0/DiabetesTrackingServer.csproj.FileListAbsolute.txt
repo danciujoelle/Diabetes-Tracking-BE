@@ -160,3 +160,9 @@ C:\Grant2Grow\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer
 C:\Grant2Grow\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\obj\Debug\net5.0\ref\DiabetesTrackingServer.dll
 C:\Grant2Grow\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\obj\Debug\net5.0\DiabetesTrackingServer.pdb
 C:\Grant2Grow\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\obj\Debug\net5.0\DiabetesTrackingServer.genruntimeconfig.cache
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\MailKit.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\MimeKit.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\NETCore.MailKit.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\BouncyCastle.Crypto.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
