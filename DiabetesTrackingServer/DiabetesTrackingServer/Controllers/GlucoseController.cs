@@ -51,11 +51,52 @@ namespace DiabetesTrackingServer.Controllers
                 if (user != null)
                 {
 
-                    var result = _glucoseLogService.InsertLog(glucoseLog, user);
+                    var result = await _glucoseLogService.InsertLog(glucoseLog, user);
+                    if(user.DiabetesType == "Prediabetes")
+                    {
+                        if(glucoseLog.WhenWasLogged=="before meal" && glucoseLog.GlucoseLevel > 125)
+                        {
+                            return Ok(new
+                            {
+                                StatusCode = 200,
+                                Message = "Glucose level is over the normal range. Please contact the doctor!",
+                                Output = ""
+                            });
+                        }
+                        if (glucoseLog.WhenWasLogged == "after meal" && glucoseLog.GlucoseLevel > 199)
+                        {
+                            return Ok(new
+                            {
+                                StatusCode = 200,
+                                Message = "Glucose level is over the normal range. Please contact the doctor!",
+                                Output = ""
+                            });
+                        }
+                    } else
+                    {
+                        if (glucoseLog.WhenWasLogged == "before meal" && glucoseLog.GlucoseLevel > 126)
+                        {
+                            return Ok(new
+                            {
+                                StatusCode = 200,
+                                Message = "Glucose level is over the normal range. Please contact the doctor!",
+                                Output = ""
+                            });
+                        }
+                        if (glucoseLog.WhenWasLogged == "after meal" && glucoseLog.GlucoseLevel > 199)
+                        {
+                            return Ok(new
+                            {
+                                StatusCode = 200,
+                                Message = "Glucose level is over the normal range. Please contact the doctor!",
+                                Output = ""
+                            });
+                        }
+                    }
                     return Ok(new
                     {
                         StatusCode = 200,
-                        Message = "The log was added successfully",
+                        Message = "The log was added successfully. The level is inside the normal range.",
                         Output = ""
                     });
                 }
@@ -64,6 +105,22 @@ namespace DiabetesTrackingServer.Controllers
                     Message = "The input in not right",
                 });
             }
+        }
+
+        [HttpGet]
+        [Route("reminder/{userId}")]
+        public async Task<IActionResult> NeedsReminder(string userId)
+        {
+            var user = await _userService.GetUserById(Guid.Parse(userId));
+            if (user != null)
+            {
+                var needsReminder = _glucoseLogService.NeedsReminder(user);
+                return Ok(needsReminder);
+            }
+            return BadRequest(new
+            {
+                Message = "The input in not right",
+            });
         }
     }
 }

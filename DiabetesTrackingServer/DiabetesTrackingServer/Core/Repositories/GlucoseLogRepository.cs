@@ -22,7 +22,10 @@ namespace DiabetesTrackingServer.Core.Repositories
         }
         public async Task<IEnumerable<GlucoseDto>> GetAllLogs(User user)
         {
-            return await _dbContext.GlucoseLogs.Where(e => e.User == user).Select(e => new GlucoseDto()
+            var today = DateTime.Today;
+            var currentMonth = today.Month;
+
+            return await _dbContext.GlucoseLogs.Where(e => e.User == user && e.LoggedDate.Month >= currentMonth-2).Select(e => new GlucoseDto()
             {
                 GlucoseLevel = e.GlucoseLevel,
                 LoggedDate = e.LoggedDate,
@@ -38,6 +41,18 @@ namespace DiabetesTrackingServer.Core.Repositories
             await _dbContext.SaveChangesAsync();
             return result.Entity;
      
+        }
+
+        public bool NeedsReminder(User user)
+        {
+            var today = DateTime.Today;
+            var tomorrow = today.AddDays(1);
+            var result = _dbContext.GlucoseLogs.Where(e => e.User == user && e.LoggedDate >= today && e.LoggedDate < tomorrow).FirstOrDefault();
+            if(result != null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
