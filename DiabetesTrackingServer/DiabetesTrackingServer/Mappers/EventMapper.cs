@@ -15,7 +15,6 @@ namespace DiabetesTrackingServer.Mappers
             {
                 EventId = new Guid(),
                 Title = appointment.Title,
-                Description = appointment.Description,
                 StartTime = appointment.StartTime,
                 EndTime = appointment.EndTime,
                 User = user

@@ -26,7 +26,6 @@ namespace DiabetesTrackingServer.Core.Repositories
             return await _dbContext.Events.Where(e => e.User == user).Select(e => new EventDto()
             {
                 Title = e.Title,
-                Description = e.Description,
                 StartTime = e.StartTime,
                 EndTime = e.EndTime,
             }).ToListAsync();
@@ -40,7 +39,6 @@ namespace DiabetesTrackingServer.Core.Repositories
             return new EventDto()
             {
                 Title = result.Entity.Title,
-                Description = result.Entity.Description,
                 StartTime = result.Entity.StartTime,
                 EndTime = result.Entity.EndTime
             };
