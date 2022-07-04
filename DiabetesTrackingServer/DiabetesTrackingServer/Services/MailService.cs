@@ -1,40 +1,55 @@
 ﻿using DiabetesTrackingServer.Models;
+using DiabetesTrackingServer.Repositories;
+using DiabetesTrackingServer.ViewModels;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
-
 namespace DiabetesTrackingServer.Services
 {
     public class MailService : IEmailService
     {
         private readonly MailSettings _mailSettings;
-        public MailService(IOptions<MailSettings> mailSettings)
+        private IUserRepository _userRepository;
+        public MailService(IOptions<MailSettings> mailSettings, IUserRepository userRepository)
         {
             _mailSettings = mailSettings.Value;
+            _userRepository = userRepository;
         }
-        public void SendEmail(MailRequest mailRequest)
+        public async void SendEmail(MailRequest mailRequest)
         {
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
-            client.Port = _mailSettings.Port;
+
+            client.Port = 587;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;
-            NetworkCredential credential = new NetworkCredential(_mailSettings.Mail, _mailSettings.Password);
+            System.Net.NetworkCredential credentials =
+                new System.Net.NetworkCredential(_mailSettings.Mail, _mailSettings.Password);
             client.EnableSsl = true;
-            client.Credentials = credential;
+            client.Credentials = credentials;
 
-            MailMessage message = new MailMessage(_mailSettings.Mail, mailRequest.ToEmail);
-            message.Subject = mailRequest.Subject;
-            message.Body = mailRequest.Body;
-            client.Send(message);
+            try
+            {
+                var mail = new MailMessage(new MailAddress(_mailSettings.Mail), new MailAddress(mailRequest.ToEmail));
+                mail.Subject = mailRequest.Subject;
+                mail.Body = mailRequest.Body;
+                client.Send(mail);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw ex;
+            }
         }
 
-        public Task SendEmailAsync(MailRequest mailRequest)
+        public async void SendEmailForReminders()
         {
-            throw new NotImplementedException();
+            var allUsers = await _userRepository.GetAllUsers();
+            foreach (User user in allUsers)
+            {
+                var emailRequest = new MailRequest(user.Email, "Diabetes Tracking App", "Please log in your glucose levels!");
+                SendEmail(emailRequest);
+            }
         }
     }
+
 }

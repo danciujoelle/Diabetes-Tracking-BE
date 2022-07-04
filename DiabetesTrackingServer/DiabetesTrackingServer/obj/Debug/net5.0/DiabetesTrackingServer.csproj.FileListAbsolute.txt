@@ -166,3 +166,4 @@ D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesT
 D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\NETCore.MailKit.dll
 D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\BouncyCastle.Crypto.dll
 D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\System.Runtime.CompilerServices.Unsafe.dll
+D:\an4danciujoelle\LICENTA\Diabetes-Tracking-BE\DiabetesTrackingServer\DiabetesTrackingServer\bin\Debug\net5.0\Quartz.dll

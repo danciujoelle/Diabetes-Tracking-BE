@@ -32,5 +32,20 @@ namespace DiabetesTrackingServer.Controllers
             }
 
         }
+
+        [HttpPost("sendReminders")]
+        public async Task<IActionResult> SendMailForReminder()
+        {
+            try
+            {
+                mailService.SendEmailForReminders();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+
+        }
     }
 }

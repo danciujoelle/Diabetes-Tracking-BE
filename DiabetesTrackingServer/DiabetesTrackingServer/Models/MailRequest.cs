@@ -10,5 +10,13 @@ namespace DiabetesTrackingServer.Models
         public string ToEmail { get; set; }
         public string Subject { get; set; }
         public string Body { get; set; }
+        public MailRequest(string email, string v1, string v2)
+        {
+            this.ToEmail = email;
+            this.Subject = v1;
+            this.Body = v2;
+        }
+
+
     }
 }

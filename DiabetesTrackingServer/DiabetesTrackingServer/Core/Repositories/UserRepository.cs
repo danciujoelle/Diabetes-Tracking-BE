@@ -31,7 +31,7 @@ namespace DiabetesTrackingServer.Repositories
 
         }
 
-        public async Task<IEnumerable<User>> GetAllUsers()
+        public async Task<List<User>> GetAllUsers()
         {
             return await _dbContext.Users.ToListAsync();
         }
@@ -110,5 +110,6 @@ namespace DiabetesTrackingServer.Repositories
 
             return "User provided does not exist.";
         }
+
     }
 }

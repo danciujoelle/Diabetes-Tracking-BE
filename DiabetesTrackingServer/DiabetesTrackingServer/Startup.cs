@@ -1,6 +1,7 @@
 using DiabetesTrackingServer.Core.IRepositories;
 using DiabetesTrackingServer.Core.Repositories;
 using DiabetesTrackingServer.DataAccess;
+using DiabetesTrackingServer.EmailRelated;
 using DiabetesTrackingServer.Models;
 using DiabetesTrackingServer.Repositories;
 using DiabetesTrackingServer.Services;
@@ -17,6 +18,7 @@ namespace DiabetesTrackingServer
     {
         public Startup(IConfiguration configuration)
         {
+            JobScheduler.Start();
             Configuration = configuration;
         }
 
@@ -40,7 +42,6 @@ namespace DiabetesTrackingServer
             services.AddTransient<IInsulinLogRepository, InsulinLogRepository>();
             services.AddTransient<ISportLogRepository, SportLogRepository>();
             services.AddTransient<ISportLogService, SportLogService>();
-            services.AddTransient<IEmailService, EmailService>();
             services.AddTransient<IEmailService, MailService>();
             services.AddDbContext<DiabetesTrackingContext>(o => o.UseSqlServer(Configuration.GetConnectionString("DiabetesTracking")));
             services.AddControllers();

@@ -8,7 +8,8 @@ namespace DiabetesTrackingServer.Services
 {
     public interface IEmailService
     {
-        Task SendEmailAsync(MailRequest mailRequest);
+        //Task SendEmailAsync(MailRequest mailRequest);
         void SendEmail(MailRequest mailRequest);
+        void SendEmailForReminders();
     }
 }

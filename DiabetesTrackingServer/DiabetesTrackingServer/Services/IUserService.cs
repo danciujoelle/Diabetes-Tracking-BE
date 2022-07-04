@@ -18,5 +18,6 @@ namespace DiabetesTrackingServer.Services
         Task<Boolean> IsUsernameUnique(string username);
         Task<Boolean> IsEmailUnique(string email);
         Task<string> UpdatePassword(Guid userId, string newPassword);
+        Task<IEnumerable<User>> GetUsersForGlucoseRemider();
     }
 }

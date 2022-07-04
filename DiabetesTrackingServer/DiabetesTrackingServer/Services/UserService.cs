@@ -1,8 +1,10 @@
-﻿using DiabetesTrackingServer.Models;
+﻿using DiabetesTrackingServer.Core.IRepositories;
+using DiabetesTrackingServer.Models;
 using DiabetesTrackingServer.Repositories;
 using DiabetesTrackingServer.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace DiabetesTrackingServer.Services
@@ -10,6 +12,8 @@ namespace DiabetesTrackingServer.Services
     class UserService : IUserService
     {
         private IUserRepository _userRepository;
+        private IGlucoseLogRepository _glucoseLogRepository;
+
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
@@ -57,6 +61,20 @@ namespace DiabetesTrackingServer.Services
         public async Task<string> UpdatePassword(Guid userId, string newPassword)
         {
             return await _userRepository.UpdatePassword(userId, newPassword);
+        }
+
+        public async Task<IEnumerable<User>> GetUsersForGlucoseRemider()
+        {
+            var allUsers = await _userRepository.GetAllUsers();
+            ICollection<User> neededUsers = new Collection<User>();
+            foreach(User user in allUsers)
+            {
+                if (_glucoseLogRepository.NeedsReminder(user))
+                {
+                    neededUsers.Add(user);
+                }
+            }
+            return neededUsers;
         }
     }
 }

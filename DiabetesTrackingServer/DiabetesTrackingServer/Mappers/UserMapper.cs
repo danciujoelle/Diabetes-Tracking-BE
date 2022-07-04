@@ -19,7 +19,7 @@ namespace DiabetesTrackingServer.Mappers
                 Username = user.Username,
                 Password = CommonMethods.EncryptData(user.Password),
                 HasDiabetes = true,
-                DiabetesType = "Prediabetes",
+                DiabetesType = "PrediabetesML",
             };
         }
     }

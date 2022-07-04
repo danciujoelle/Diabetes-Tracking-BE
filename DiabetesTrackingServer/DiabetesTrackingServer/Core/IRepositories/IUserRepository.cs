@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace DiabetesTrackingServer.Repositories
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
-        Task<IEnumerable<User>> GetAllUsers();
+        Task<List<User>> GetAllUsers();
         Task<User> InsertUser(UserModel userEntity);
         Task<string> UpdateUser(UpdateUserModel userEntity);
         void DeleteUser(Guid userId);
